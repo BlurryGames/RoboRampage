@@ -11,5 +11,12 @@ config_version=5
 [application]
 
 config/name="RoboRampage"
+run/main_scene="res://levels/sand_box.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[file_customization]
+
+folder_colors={
+"res://levels/": "green"
+}
