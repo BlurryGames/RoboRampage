@@ -1,11 +1,13 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+const SPEED: float = 5.0
+const JUMP_VELOCITY: float = 4.5
 
 var mouse_motion := Vector2.ZERO
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+@onready var camera_pivot: Node3D = $CameraPivot
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -39,4 +41,7 @@ func _input(event: InputEvent) -> void:
 
 func handle_camera_rotation() -> void:
 	rotate_y(mouse_motion.x)
+	camera_pivot.rotate_x(mouse_motion.y)
+	camera_pivot.rotation_degrees.x = clampf(
+			camera_pivot.rotation_degrees.x, -90.0, 90.0)
 	mouse_motion = Vector2.ZERO
