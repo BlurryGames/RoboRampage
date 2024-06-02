@@ -10,6 +10,17 @@ var player: Player = null
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var aggro_range: float = 12.0
 
+@export var attack_damage: int = 20
+@export var max_hitpoints: int = 100
+
+var hitpoints: int = max_hitpoints:
+	set(value):
+		hitpoints = value
+		if hitpoints <= 0:
+			queue_free()
+		
+		provoked = true
+
 var provoked: bool = false
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
@@ -53,3 +64,4 @@ func look_at_target(direction: Vector3) -> void:
 
 func attack() -> void:
 	print("Enemy attack!")
+	player.hitpoints -= attack_damage

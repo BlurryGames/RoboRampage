@@ -2,12 +2,21 @@ class_name Player extends CharacterBody3D
 
 const SPEED: float = 5.0
 
+var mouse_motion := Vector2.ZERO
+
 @export var jump_height: float = 1.0
 @export var fall_multiplier: float = 2.5
 
-var mouse_motion := Vector2.ZERO
-
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+@export var max_hitpoints: int = 100
+
+var hitpoints: int = max_hitpoints:
+	set(value):
+		hitpoints = value
+		print(hitpoints)
+		if hitpoints <= 0:
+			get_tree().quit()
 
 @onready var camera_pivot: Node3D = $CameraPivot
 
