@@ -5,12 +5,15 @@ const JUMP_VELOCITY: float = 4.5
 
 var player: Player = null
 
+@export var attack_range: float = 1.5
+
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var aggro_range: float = 12.0
 
 var provoked: bool = false
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
@@ -29,7 +32,12 @@ func _physics_process(delta: float) -> void:
 	if distance <= aggro_range:
 		provoked = true
 	
+	if provoked:
+		if distance <= attack_range:
+			animation_player.play("attack")
+	
 	if direction:
+		look_at_target(direction)
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	else:
@@ -37,3 +45,11 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 	
 	move_and_slide()
+
+func look_at_target(direction: Vector3) -> void:
+	var adjusted_direction: Vector3 = direction
+	adjusted_direction.y = 0.0
+	look_at(global_position + adjusted_direction, Vector3.UP, true)
+
+func attack() -> void:
+	print("Enemy attack!")
