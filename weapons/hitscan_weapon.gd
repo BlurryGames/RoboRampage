@@ -1,5 +1,6 @@
 class_name HitscanWeapon extends Node3D
 
+@export var sparks: PackedScene = null
 @export var muzzle_flash: GPUParticles3D = null
 @export var weapon_mesh: Node3D = null
 
@@ -28,3 +29,7 @@ func shoot() -> void:
 	weapon_mesh.position.z += recoil
 	if collider is Enemy:
 		collider.hitpoints -= weapon_damage
+	
+	var spark: GPUParticles3D = sparks.instantiate()
+	add_child(spark)
+	spark.global_position = ray_cast_3d.get_collision_point()
