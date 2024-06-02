@@ -1,5 +1,6 @@
 class_name HitscanWeapon extends Node3D
 
+@export var muzzle_flash: GPUParticles3D = null
 @export var weapon_mesh: Node3D = null
 
 @export var fire_rate: float = 14.0
@@ -20,6 +21,7 @@ func _process(delta: float) -> void:
 	weapon_mesh.position = weapon_mesh.position.lerp(weapon_position, 10.0 * delta)
 
 func shoot() -> void:
+	muzzle_flash.restart()
 	cooldown_timer.start(1.0 / fire_rate)
 	var collider: Object = ray_cast_3d.get_collider()
 	printt("Weapon fired!", str(collider))
