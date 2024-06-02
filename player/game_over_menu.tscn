@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://ben4qg85pgjue"]
+[gd_scene load_steps=8 format=3 uid="uid://ben4qg85pgjue"]
 
 [ext_resource type="FontFile" uid="uid://bcp53piedxb34" path="res://assets/Staatliches/Staatliches-Regular.ttf" id="1_jr8ax"]
 [ext_resource type="Script" path="res://player/game_over_menu.gd" id="2_hi848"]
+[ext_resource type="Shader" uid="uid://boyjuetb4yyom" path="res://player/game_over_menu.tres" id="3_eovbd"]
 
 [sub_resource type="Theme" id="Theme_urpn0"]
 default_font = ExtResource("1_jr8ax")
 default_font_size = 64
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7qols"]
+shader = ExtResource("3_eovbd")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_82lxw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_16mv6"]
 font_size = 96
@@ -20,6 +26,16 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_urpn0")
 script = ExtResource("2_hi848")
+
+[node name="BackgroundBlur" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_7qols")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_82lxw")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
