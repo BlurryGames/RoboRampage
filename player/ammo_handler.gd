@@ -2,6 +2,7 @@ class_name AmmoHandler extends Node
 
 enum AmmoType { BULLET = 0, SMALL_BULLET = 1 }
 
+@export var weapon_handler: WeaponHandler = null
 @export var ammo_label: Label = null
 
 var ammo_storage: Dictionary = { AmmoType.BULLET: 10, AmmoType.SMALL_BULLET: 60 }
@@ -12,11 +13,11 @@ func has_ammo(type: AmmoType) -> bool:
 func use_ammo(type: AmmoType) -> void:
 	if has_ammo(type):
 		ammo_storage[type] -= 1
-		update_ammo_label(type)
+		update_ammo_label(weapon_handler.get_weapon_ammo())
 
 func add_ammo(type: AmmoType, amount: int) -> void:
 	ammo_storage[type] += amount
-	update_ammo_label(type)
+	update_ammo_label(weapon_handler.get_weapon_ammo())
 
 func update_ammo_label(type: AmmoType) -> void:
 	ammo_label.text = str(ammo_storage[type])

@@ -38,11 +38,11 @@ func shoot() -> void:
 		muzzle_flash.restart()
 		cooldown_timer.start(1.0 / fire_rate)
 		var collider: Object = ray_cast_3d.get_collider()
-		printt("Weapon fired!", str(collider))
 		weapon_mesh.position.z += recoil
-		if collider is Enemy:
-			collider.hitpoints -= weapon_damage
-		
-		var spark: GPUParticles3D = sparks.instantiate()
-		add_child(spark)
-		spark.global_position = ray_cast_3d.get_collision_point()
+		if ray_cast_3d.is_colliding():
+			if collider is Enemy:
+				collider.hitpoints -= weapon_damage
+			
+			var spark: GPUParticles3D = sparks.instantiate()
+			add_child(spark)
+			spark.global_position = ray_cast_3d.get_collision_point()

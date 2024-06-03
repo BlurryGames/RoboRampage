@@ -132,9 +132,10 @@ ammo_handler = NodePath("../../AmmoHandler")
 ammo_handler = NodePath("../../AmmoHandler")
 ammo_type = 1
 
-[node name="AmmoHandler" type="Node" parent="SubViewport/SubViewport/WeaponCamera" node_paths=PackedStringArray("ammo_label")]
+[node name="AmmoHandler" type="Node" parent="SubViewport/SubViewport/WeaponCamera" node_paths=PackedStringArray("weapon_handler", "ammo_label")]
 unique_name_in_owner = true
 script = ExtResource("6_ggqh4")
+weapon_handler = NodePath("../WeaponHandler")
 ammo_label = NodePath("../../../../MarginContainer/AmmoLabel")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]

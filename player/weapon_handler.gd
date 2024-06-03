@@ -26,6 +26,9 @@ func get_current_index() -> int:
 	
 	return 0
 
+func get_weapon_ammo() -> AmmoHandler.AmmoType:
+	return get_child(get_current_index()).ammo_type
+
 func equip(active_weapon: HitscanWeapon) -> void:
 	for c: HitscanWeapon in get_children():
 		if c == active_weapon:
