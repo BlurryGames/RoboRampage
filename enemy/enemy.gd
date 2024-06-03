@@ -23,7 +23,9 @@ var hitpoints: int = max_hitpoints:
 var provoked: bool = false
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
@@ -44,7 +46,7 @@ func _physics_process(delta: float) -> void:
 	
 	if provoked:
 		if distance <= attack_range:
-			animation_player.play("attack")
+			playback.travel("attack")
 	
 	if direction:
 		look_at_target(direction)
