@@ -29,6 +29,7 @@ size = Vector3(0.1, 0.1, 0.1)
 [node name="SMG" node_paths=PackedStringArray("muzzle_flash", "weapon_mesh") instance=ExtResource("1_viww5")]
 muzzle_flash = NodePath("MuzzleFlash")
 weapon_mesh = NodePath("SMG")
+automatic = true
 
 [node name="SMG" parent="." index="1" instance=ExtResource("2_6fmh6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, -0.35, -1.8)
