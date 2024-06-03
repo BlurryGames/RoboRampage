@@ -12,6 +12,19 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("weapon_2"):
 		equip(weapon_2)
+	
+	if event.is_action_pressed("next_weapon"):
+		next_weapon()
+	
+	if event.is_action_pressed("last_weapon"):
+		last_weapon()
+
+func get_current_index() -> int:
+	for i in get_child_count():
+		if get_child(i).visible:
+			return i
+	
+	return 0
 
 func equip(active_weapon: HitscanWeapon) -> void:
 	for c: HitscanWeapon in get_children():
@@ -21,3 +34,13 @@ func equip(active_weapon: HitscanWeapon) -> void:
 		else:
 			c.visible = false
 			c.set_process(false)
+
+func next_weapon() -> void:
+	var index: int = get_current_index()
+	index = wrapi(index + 1, 0, get_child_count())
+	equip(get_child(index))
+
+func last_weapon() -> void:
+	var index: int = get_current_index()
+	index = wrapi(index - 1, 0, get_child_count())
+	equip(get_child(index))
