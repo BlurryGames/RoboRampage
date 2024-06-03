@@ -4,10 +4,14 @@ class_name HitscanWeapon extends Node3D
 @export var muzzle_flash: GPUParticles3D = null
 @export var weapon_mesh: Node3D = null
 
+@export var ammo_handler: AmmoHandler = null
+
 @export var fire_rate: float = 14.0
 @export var recoil: float = 0.05
 
 @export var weapon_damage: int = 15
+
+@export var ammo_type: AmmoHandler.AmmoType = AmmoHandler.AmmoType.BULLET
 
 @export var automatic: bool = false
 
@@ -29,14 +33,16 @@ func _process(delta: float) -> void:
 	weapon_mesh.position = weapon_mesh.position.lerp(weapon_position, 10.0 * delta)
 
 func shoot() -> void:
-	muzzle_flash.restart()
-	cooldown_timer.start(1.0 / fire_rate)
-	var collider: Object = ray_cast_3d.get_collider()
-	printt("Weapon fired!", str(collider))
-	weapon_mesh.position.z += recoil
-	if collider is Enemy:
-		collider.hitpoints -= weapon_damage
-	
-	var spark: GPUParticles3D = sparks.instantiate()
-	add_child(spark)
-	spark.global_position = ray_cast_3d.get_collision_point()
+	if ammo_handler.has_ammo(ammo_type):
+		ammo_handler.use_ammo(ammo_type)
+		muzzle_flash.restart()
+		cooldown_timer.start(1.0 / fire_rate)
+		var collider: Object = ray_cast_3d.get_collider()
+		printt("Weapon fired!", str(collider))
+		weapon_mesh.position.z += recoil
+		if collider is Enemy:
+			collider.hitpoints -= weapon_damage
+		
+		var spark: GPUParticles3D = sparks.instantiate()
+		add_child(spark)
+		spark.global_position = ray_cast_3d.get_collision_point()
