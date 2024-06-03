@@ -31,6 +31,7 @@ func equip(active_weapon: HitscanWeapon) -> void:
 		if c == active_weapon:
 			c.visible = true
 			c.set_process(true)
+			c.ammo_handler.update_ammo_label(c.ammo_type)
 		else:
 			c.visible = false
 			c.set_process(false)
